@@ -1,0 +1,49 @@
+{% extends 'xd_menu_template.html' %}
+{% load static %}
+
+
+{% block sentiment_section %}
+    <li class="selected_option" style="margin-top: 1rem">
+        <a href="{% url 'sl_sentiment' %}">
+            <i class='bx bx-table'></i>
+            <span class="links_name">铃兰国服意见汇总</span>
+        </a>
+        <span class="tooltip">铃兰国服意见汇总</span>
+    </li>
+{% endblock %}
+
+{% block main_content %}
+    <section class="home-section">
+{#        <div class="text_title"><b>铃兰国服问卷情感分析-Developing</b></div>#}
+
+        <div class="iframe-container">
+            <iframe id="myIframe" class="fullsize-iframe" scrolling="no" src="{% url 'sentiment_query_init' %}"></iframe>
+        </div>
+
+
+        <style>
+            /* 为 iframe 设置样式 */
+            .fullsize-iframe {
+                width: 100%; /* iframe 宽度设置为 100% */
+                height: 100%; /* iframe 高度设置为 100% */
+                border: none; /* 移除 iframe 默认的边框 */
+                overflow: hidden; /* 隐藏滚动条 */
+            }
+
+            /* 为包含 iframe 的容器设置样式 */
+            .iframe-container {
+                width: 100%; /* 容器的宽度设置为 100% */
+                height: 500px; /* 容器的高度，您可以根据需要设置 */
+                position: relative; /* 相对定位，以便 iframe 可以使用绝对定位填满整个容器 */
+            }
+
+            /* 使 iframe 绝对定位，并填满整个容器 */
+            .iframe-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        </style>
+
+    </section>
+{% endblock %}

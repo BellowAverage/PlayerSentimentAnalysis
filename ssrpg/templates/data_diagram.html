@@ -1,0 +1,49 @@
+{% extends 'xd_menu_template.html' %}
+
+{% block main_content %}
+    <form id="uploadForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id="csvFile" name="csvFile" accept=".csv">
+        <button type="submit">Upload</button>
+    </form>
+    <script>
+        $(document).ready(function () {
+            $('#uploadForm').on('submit', function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: "{% url 'upload_handle' %}",
+                    type: 'POST',
+                    data: formData,
+                    success: function (data) {
+                        if (data.success) {
+                            alert(data.success);
+                        } else {
+                            alert(data.error);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert('文件上传失败！请检查文件是否是utf-8编码，或联系管理员。');
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            });
+        });
+
+
+    </script>
+{% endblock %}
+
+
+{% block data_diagram_section %}
+    <li class="selected_option">
+        <a href="{% url 'data_diagram' %}">
+            <i class='bx bx-sitemap'></i>
+            <span class="links_name">数据地图</span>
+        </a>
+        <span class="tooltip">数据地图</span>
+    </li>
+{% endblock %}

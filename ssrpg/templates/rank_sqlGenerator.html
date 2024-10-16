@@ -1,0 +1,174 @@
+{% extends 'xd_menu_template.html' %}
+{% load static %}
+
+{% block rank_sqlGenerator_section %}
+<li class="selected_option" style="margin-top: 1rem">
+  <a href="{% url 'rank_sqlGenerator' %}">
+    <i class="bx bx-copy"></i>
+    <span class="links_name">资源缺失SQL工具</span>
+  </a>
+  <span class="tooltip">资源缺失SQL工具</span>
+</li>
+{% endblock %}
+
+{% block main_content %}
+<section class="home-section">
+  <form
+    class="input_query"
+    id="rank_sqlGenerator"
+    method="get"
+    action="{% url 'rank_sqlGenerator_form_handle' %}"
+  >
+    <div class="mb-3">
+      <label for="exampleSingleSelect" class="form-label">选择职业</label>
+      <select class="form-select" id="profession_selection">
+        <option selected value="突袭者">突袭者</option>
+        <option value="毁灭者">毁灭者</option>
+        <option value="防御者">防御者</option>
+        <option value="守望者">守望者</option>
+        <option value="粉碎者">粉碎者</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleDateInput" class="form-label">选择日期</label>
+      <input
+        type="date"
+        class="form-control"
+        id="date_selection"
+        value="2024-02-04"
+      />
+    </div>
+
+    <div class="mb-3 form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="if_no_studio"
+        value="True"
+      />
+      <label class="form-check-label" for="exampleBooleanInput"
+        >去除工作室</label
+      >
+    </div>
+
+    <div class="mb-3 form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="if_3_day_active"
+        value="True"
+      />
+      <label class="form-check-label" for="exampleBooleanInput"
+        >三日内活跃</label
+      >
+    </div>
+
+    <button type="button" class="btn btn-primary" id="submit_button">
+      生成SQL
+    </button>
+    <!-- <style>
+            /* 为 iframe 设置样式 */
+            .fullsize-iframe {
+                width: 100%; /* iframe 宽度设置为 100% */
+                height: 100%; /* iframe 高度设置为 100% */
+                border: none; /* 移除 iframe 默认的边框 */
+                overflow: hidden; /* 隐藏滚动条 */
+            }
+
+            /* 为包含 iframe 的容器设置样式 */
+            .iframe-container {
+                width: 100%; /* 容器的宽度设置为 100% */
+                height: 500px; /* 容器的高度，您可以根据需要设置 */
+                position: relative; /* 相对定位，以便 iframe 可以使用绝对定位填满整个容器 */
+            }
+
+            /* 使 iframe 绝对定位，并填满整个容器 */
+            .iframe-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        </style> -->
+  </form>
+
+  <div id="results_container">
+
+  </div>
+
+    <div class="textarea-container">
+        <textarea id="sql_output" rows="10" readonly></textarea>
+    </div>
+
+  <button id="copy_button">复制 SQL</button>
+
+  <script>
+    window.addEventListener("load", function () {
+
+    const sqlOutput = document.getElementById("sql_output");
+  
+    sqlOutput.style.width = "100%";
+    sqlOutput.style.height = "50rem"; // 您可以根据需要调整这个值
+
+    
+      const professionSelection = document.getElementById(
+        "profession_selection"
+      );
+      const dateSelection = document.getElementById("date_selection");
+      const noStudioCheckbox = document.getElementById("if_no_studio");
+      const active3DaysCheckbox = document.getElementById("if_3_day_active");
+      const submitButton = document.getElementById("submit_button");
+      const resultsContainer = document.getElementById("results_container");
+
+      submitButton.addEventListener("click", function () {
+        const profession = professionSelection.value;
+        const date = dateSelection.value;
+        const noStudio = noStudioCheckbox.checked;
+        const active3Days = active3DaysCheckbox.checked;
+
+        const url = `RankSqlGenerator/generate/?profession=${profession}&date=${date}&noStudio=${noStudio}&active3Days=${active3Days}`;
+
+        fetch(url)
+          .then((response) => response.json()) // Expect a JSON response
+          .then((context) => {
+            // Clear the results container
+            resultsContainer.innerHTML = "";
+
+            // 填充文本区域的函数
+            function populateSqlOutput(sql) {
+              const sqlOutput = document.getElementById("sql_output");
+              sqlOutput.value = sql; // 假设 sql 是格式化后的 SQL 字符串
+            }
+
+            // 示例：假设从服务器获取的 SQL 字符串
+            const formattedSql = context.sql_res;
+
+            // 填充文本区域
+            populateSqlOutput(formattedSql);
+
+            // Object.keys(context).forEach((key) => {
+            //   const p = document.createElement("p");
+            //   p.textContent = `${key}: ${context[key]}`;
+            //   resultsContainer.appendChild(p);
+            // });
+          });
+
+                      // 复制到剪贴板的函数
+            function copyToClipboard() {
+              const sqlOutput = document.getElementById("sql_output");
+              sqlOutput.select(); // 选择文本区域中的文本
+              document.execCommand("copy"); // 执行复制命令
+              alert("SQL 已复制到剪贴板"); // 提示用户已复制
+            }
+
+            // 添加点击事件监听器到复制按钮
+            const copyButton = document.getElementById("copy_button");
+            copyButton.addEventListener("click", function () {
+              copyToClipboard();
+            });
+
+      });
+    });
+  </script>
+</section>
+{% endblock %}

@@ -1,0 +1,37 @@
+
+.whole_menu {
+    display: flex;
+    flex-direction: row;
+}
+
+.whole_right {
+    display: flex;
+    flex-direction: column;
+    flex: 9;
+}
+
+.navbar_top {
+    flex: 1;
+    background-color: blue;
+}
+
+.big_arching {
+    display: flex;
+    flex-direction: row;
+    flex: 8;
+
+}
+
+.navbar_bottom {
+    flex: 1;
+    margin-left: 2.5rem;
+}
+
+.navbar_left {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: #3E5569;
+}
+
+/*120.253.194.66*/

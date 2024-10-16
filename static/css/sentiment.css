@@ -1,0 +1,364 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+.sentiment_header {
+    margin: 2.5rem;
+    padding-left: 1.5rem;
+
+    padding-bottom: 2rem;
+
+    /*background: rgba(255, 255, 255, 0.1);*/
+    overflow: hidden;
+    border: 0.1rem solid #ccc;
+    border-radius: 5px;
+
+    backdrop-filter: blur(5px);
+    transition: box-shadow 0.3s ease;
+
+    margin-bottom: 1.5rem;
+
+
+}
+
+.sentiment_header:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.arching {
+    display: flex;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.left_side {
+    flex: 1;
+    margin-right: 0.75rem;
+    padding: 1.5rem;
+    /*background: rgba(255, 255, 255, 0.1);*/
+    overflow: hidden;
+    border: 0.1rem solid #ccc;
+    border-radius: 5px;
+
+    backdrop-filter: blur(5px);
+    transition: box-shadow 0.3s ease;
+}
+
+.left_side:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.right_side {
+    flex: 4;
+    margin-left: 0.75rem;
+    padding: 1.5rem;
+    /*background: rgba(255, 255, 255, 0.1);*/
+    overflow: hidden;
+    border: 0.1rem solid #ccc;
+    border-radius: 5px;
+
+    backdrop-filter: blur(5px);
+    transition: box-shadow 0.3s ease;
+}
+
+.right_side:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.input_query {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+
+    margin-bottom: 1rem;
+    border: none;
+    border-bottom: 0.15rem solid #333;
+
+
+    /*font-weight: bold;*/
+    font-size: 0.85rem;
+    color: black;
+}
+
+select {
+    margin-top: 0.5rem;
+}
+
+input[type="text"] {
+    margin-top: 0.5rem;
+}
+
+
+button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd; /* 添加网格线，可以根据需要调整颜色 */
+}
+
+th {
+    background-color: #f2f2f2; /* 表头背景色 */
+}
+
+tr:hover {
+    background-color: #f5f5f5; /* 鼠标悬停时的背景色 */
+}
+
+.table_class {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right > div {
+    width: 90%; /* 调整图表容器的宽度 */
+    min-height: 300px; /* 确保容器有足够的最小高度 */
+    margin-top: 1rem;
+}
+
+/* ------------------------------------------------ */
+
+
+.big_left {
+    flex: 4
+}
+
+.big_right {
+    flex: 1;
+    padding: 1rem;
+    /*background: rgba(255, 255, 255, 0.1);*/
+    overflow: hidden;
+    border: 0.1rem solid #ccc;
+    border-radius: 5px;
+
+    backdrop-filter: blur(5px);
+    transition: box-shadow 0.3s ease;
+    margin: 2.48rem 2rem -0.05rem -1rem;
+}
+
+
+.big_right:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Tooltip 容器 */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip 文本 */
+.tooltip .tooltiptext {
+    display: none;
+
+    /* 淡入淡出效果 */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* 鼠标悬浮时显示 Tooltip 文本 */
+.tooltip:hover .tooltiptext {
+    display: block;
+    opacity: 1;
+}
+
+/* 初始化状态，将所有内容设置为透明并隐藏 */
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* 定义一个淡入动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 淡入动画的目标状态，将所有内容设置为完全可见 */
+.fadeIn {
+    animation: fadeIn 0.2s ease-in-out forwards;
+    visibility: visible;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+}
+
+span {
+    margin-top: 0.9rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.modded_h3 {
+    margin-bottom: -0.08rem;
+    margin-top: 1.2rem;
+}
+
+.class_table {
+    margin-top: 1.1rem;
+}
+
+
+/* 修改所有 DataTables 按钮的基础样式 */
+/*.dt-button {*/
+/*    color: white; !* 文字颜色 *!*/
+/*    background-color: #007bff; !* 背景颜色 *!*/
+/*    border-color: #007bff; !* 边框颜色 *!*/
+/*    margin-right: 5px; !* 在按钮之间添加间距 *!*/
+/*}*/
+
+/*!* 为特定按钮添加样式 *!*/
+/*.dt-button.copyButton {*/
+/*    background-color: #28a745; !* 特定按钮背景颜色 *!*/
+/*}*/
+
+/*.dt-button.csvButton {*/
+/*    background-color: #17a2b8; !* 特定按钮背景颜色 *!*/
+/*}*/
+
+/*.dt-button.excelButton {*/
+/*    background-color: #ffc107; !* 特定按钮背景颜色 *!*/
+/*}*/
+
+/*.dt-button.pdfButton {*/
+/*    background-color: #dc3545; !* 特定按钮背景颜色 *!*/
+/*}*/
+
+
+div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
+
+    font-weight: bold;
+    margin-bottom: 1rem;
+    /*border-radius: 0.4rem;*/
+}
+
+div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button:hover {
+
+    font-weight: bold;
+}
+
+input[type="number"] {
+    border: none;
+    margin-left: 0.8rem;
+    margin-bottom: -1rem;
+    font-size: 1rem;
+    margin-right: -2.5rem;
+    text-decoration: underline;
+}
+
+input[type="number"]:focus {
+    border: none;
+    outline: none;
+    text-decoration: underline;
+}
+
+.sentiment_loader {
+    border: 0.5rem solid #f3f3f3;
+    border-top: 0.5rem solid #3498db;
+    border-radius: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.dataTables_filter {
+    color: #333;
+    margin-top: -0.5rem;
+}
+
+.dataTables_filter label {
+    /* 设置搜索框标签的样式 */
+    color: #333;
+    margin-top: -0.5rem;
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color: inherit;
+    margin-top: 1rem;
+}
+
+/*-----------*/
+
+/* 去掉 DataTables 网格线的样式 */
+/*#myTable {*/
+/*    border-collapse: collapse;*/
+/*}*/
+
+/*#myTable th, #myTable td {*/
+/*    border: none;*/
+/*}*/
+
+/*-----------*/
+
+/* 设置 DataTables 外框线的圆角 */
+/* 设置 DataTables 外边框线的圆角 */
+/*#myTable {*/
+/*    border-collapse: separate;*/
+/*    border-spacing: 0;*/
+/*}*/
+
+/*#myTable {*/
+/*    border: 0.2rem solid black; !* 设置外边框线样式 *!*/
+/*    border-radius: 2rem;    !* 设置外边框线的圆角半径 *!*/
+/*    padding: 1.5rem;*/
+/*}*/
+
+/*#myTable th, #myTable td {*/
+/*    border: 1px solid #ddd; !* 设置内部单元格的边框样式 *!*/
+/*    padding: 8px;          !* 设置单元格内边距 *!*/
+/*}*/
+

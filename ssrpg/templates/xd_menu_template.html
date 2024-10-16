@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+
+    <meta charset="UTF-8">
+    <title> VIP意见数据看板 </title>
+    <link rel="stylesheet" href="{% static  'css/style_xd_menu.css' %}">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo-details">
+        <img src="{% static 'img/xd/xd_logo.png' %}" alt="Logo" class="icon"
+             style="width: 1.5rem; border-radius: 0.3rem; margin-right: 1rem;margin-left: 0.5rem;margin-top: 0rem"/>
+        {#        <i class='bx bxl-c-plus-plus icon'></i>#}
+{#        <div class="logo_name">Vip意见汇总</div>#}
+        <div class="logo_name">已登录</div>
+        <i class='bx bx-menu' id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search...">
+            <span class="tooltip">快速搜索</span>
+        </li>
+
+        {% block sentiment_section %}
+            <li style="margin-top: 1rem">
+                <a href="#" id="sl_sentiment_link">
+                    <i class='bx bx-table'></i>
+                    <span class="links_name">铃兰国服意见汇总</span>
+                </a>
+                <span class="tooltip">铃兰国服意见汇总</span>
+            </li>
+        {% endblock %}
+        
+        {% block rank_sqlGenerator_section %}
+        <li style="margin-bottom: 1rem">
+            <a href="{% url 'rank_sqlGenerator' %}">
+                <i class='bx bx-copy'></i>
+                <span class="links_name">资源缺失SQL工具</span>
+            </a>
+            <span class="tooltip">资源缺失SQL工具</span>
+        </li>
+        {% endblock %}
+
+        <hr>
+
+        <li style="margin-top: 1rem">
+            <a href="#">
+                <i class='bx bx-code-alt'></i>
+                <span class="links_name">控制台</span>
+            </a>
+            <span class="tooltip">控制台</span>
+        </li>
+
+        {% block data_diagram_section %}
+            <li>
+                <a href="#" id="dataDiagramLink">
+                    <i class='bx bx-sitemap'></i>
+                    <span class="links_name">数据地图</span>
+                </a>
+                <span class="tooltip">数据地图</span>
+            </li>
+        {% endblock %}
+
+
+        <li>
+            <a href="#">
+                <i class='bx bx-cog'></i>
+                <span class="links_name">设置</span>
+            </a>
+            <span class="tooltip">设置</span>
+        </li>
+
+
+        <li class="profile">
+
+            <div class="profile-details">
+                <img src="{% static 'img/xd/chris.jpg' %}" alt="profileImg">
+                <div class="name_job">
+                    <div class="name">Chris</div>
+                    <div class="job">Data Analyst</div>
+                </div>
+            </div>
+            <i class='bx bx-log-out' id="log_out"></i>
+        </li>
+
+
+    </ul>
+</div>
+{% block main_content %}
+
+    <section class="home-section">
+        <div class="text_title"><b>铃兰国服问卷情感分析-Developing</b></div>
+
+        {% block iframe_section %}
+
+            <div class="iframe-container">
+                <iframe id="myIframe" class="fullsize-iframe" scrolling="no"
+                        src="{% url 'sentiment_query_0' %}"></iframe>
+            </div>
+
+        {% endblock %}
+
+        <style>
+            /* 为 iframe 设置样式 */
+            .fullsize-iframe {
+                width: 100%; /* iframe 宽度设置为 100% */
+                height: 100%; /* iframe 高度设置为 100% */
+                border: none; /* 移除 iframe 默认的边框 */
+                overflow: hidden; /* 隐藏滚动条 */
+            }
+
+            /* 为包含 iframe 的容器设置样式 */
+            .iframe-container {
+                width: 100%; /* 容器的宽度设置为 100% */
+                height: 500px; /* 容器的高度，您可以根据需要设置 */
+                position: relative; /* 相对定位，以便 iframe 可以使用绝对定位填满整个容器 */
+            }
+
+            /* 使 iframe 绝对定位，并填满整个容器 */
+            .iframe-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        </style>
+
+    </section>
+{% endblock %}
+
+<script>
+
+
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+
+    closeBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        menuBtnChange();//calling the function(optional)
+    });
+
+    searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
+        sidebar.classList.toggle("open");
+        menuBtnChange(); //calling the function(optional)
+    });
+
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
+        var navbarStatus;
+
+        if (sidebar.classList.contains("open")) {
+            closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the icons class
+            navbarStatus = "True"; // If sidebar is open, we want to set the status as False when we close it
+        } else {
+            closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the icons class
+            navbarStatus = "False"; // If sidebar is closed, we want to set the status as True when we open it
+        }
+
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        setCookie("navbar_status", navbarStatus, 0.1);
+    }
+
+    window.addEventListener('message', function (event) {
+        if (event.data.iframeHeight) {
+            var iframe = document.getElementById('myIframe');
+            iframe.style.height = event.data.iframeHeight + 'px';
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // 获取链接元素
+        var dataDiagramLink = document.getElementById('dataDiagramLink');
+        var dataDiagramUrl = "{% url 'data_diagram' %}";
+        // 添加点击事件监听器
+        dataDiagramLink.addEventListener('click', function (e) {
+            // 阻止默认的链接跳转行为
+            e.preventDefault();
+
+            // 执行关闭sidebar的逻辑
+            sidebar.classList.remove("open");
+            closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+
+            // 执行完逻辑后跳转到指定的URL
+            // 替换 'your_url' 为实际的URL路径
+            function Jump2Next() {
+                window.location.href = dataDiagramUrl;
+            }
+
+            setTimeout(Jump2Next, 400);
+        });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var sl_sentiment_link = document.getElementById('sl_sentiment_link');
+        var sl_sentiment_url = "{% url 'sl_sentiment' %}"
+
+        sl_sentiment_link.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            sidebar.classList.remove("open");
+            closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+
+            function Jump2Next() {
+                window.location.href = sl_sentiment_url;
+            }
+
+            setTimeout(Jump2Next, 400);
+        });
+    });
+
+
+</script>
+</body>
+</html>

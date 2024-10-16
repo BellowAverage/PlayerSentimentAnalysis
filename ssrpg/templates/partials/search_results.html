@@ -1,0 +1,33 @@
+<div class="right_up" style="display: flex; flex-direction: row">
+  <div class="right_0" style="flex: 1">
+    <div class="statistic_res" id="mid_loader"></div>
+  </div>
+
+  <div class="statistic_class" style="flex: 3; margin-left: -2.5rem">
+    <h3>分层数据</h3>
+  </div>
+</div>
+
+<div class="search_res">
+  {% if query_results %}
+  <h3>筛选结果</h3>
+  <table id="myTable" class="display">
+    <thead>
+      <tr>
+        {% for column_name, _ in query_results.0.items %}
+        <th>{{ column_name }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in query_results %}
+      <tr>
+        {% for _, value in result.items %}
+        <td>{{ value }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
