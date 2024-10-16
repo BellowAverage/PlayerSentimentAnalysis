@@ -1,22 +1,13 @@
-## Introduction
+# EO Space Config
 
-- This repo hosts my work constructing a data integration platform when serving as a data analyst for a game company.
-- Data revealed in this version is completely regenerated randomly as example, and discloses no company-specific or confidential information.
-
-## A Business Intelligence Workspace
-
-[Me Introducing this Project](https://youtu.be/q-u6D0fzDCo)
-
-## EO Space Deployment
-
-- Unzip `eo_space.zip` to any location
+- 解压`eo_space.zip`到任意位置
 
 ```bash
 unzip eo_space.zip
 cd eo_space
 ```
 
-- Configure the `python` environment
+- 配置`python`环境
 
 ```bash
 python3 -m venv venv
@@ -24,17 +15,17 @@ source venv/bin/activate
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 ```
 
-- Configure `Nginx` Proxy
+- 配置`Nginx`代理
 
 ```bash
-# Open a new terminal or exit the virtual environment
-# Install nginx
+# 新开终端或退出虚拟环境
+# 安装nginx
 sudo apt-get install nginx
-# Configure nginx
+# 配置nginx
 cd /etc/nginx/sites-available/
 sudo touch eospace_nginx.conf
 sudo vim eospace_nginx.conf
-# Modify eospace_nginx.conf as follows:
+# 修改eospace_nginx.conf为:
 ```
 
 ```json
@@ -57,11 +48,11 @@ server {
 
     # Django media
     location /media  {
-        alias /home/ubuntu/eo_space/media;  **# Change this to eo_space project root directory + /media**
+        alias /home/ubuntu/eo_space/media;  **# 这里改成eo_space工程根目录 + /media**
     }
 
     location /static {
-        alias /home/ubuntu/eo_space/static; **# Change this to eo_space project root directory + /static**
+        alias /home/ubuntu/eo_space/static; **# 这里改成eo_space工程根目录 + /static**
 
     # Finally, send all non-media requests to the Django server.
     location / {
@@ -72,11 +63,12 @@ server {
 ```
 
 ```bash
-# Save eospace_nginx.conf and create a symbolic link for it
-sudo ln -s /etc/nginx/sites-available/eospace_nginx.conf /etc/nginx/sites-enabled
-cd ..  # Return to the nginx configuration directory
+# 保存eospace_nginx.conf并为其创建软链接
+sudo ln -s /etc/nginx/sites-available/eospace_nginx.conf /etc/nginx/sites-e
+nabled
+cd ..  # 退回到nginx配置目录
 sudo vim nginx.conf
-# Modify nginx.conf as follows:
+# 修改nginx.conf为：
 ```
 
 ```json
@@ -111,7 +103,7 @@ http {
 ```
 
 ```bash
-# Create or modify the uwsgi_params file in this directory:
+# 创建或修改该目录下文件uwsgi_params为：
 ```
 
 ```json
@@ -133,54 +125,54 @@ uwsgi_param  SERVER_PORT        $server_port;
 uwsgi_param  SERVER_NAME        $server_name;
 ```
 
-- Configure `uwsgi`
+- 配置`uwsgi`
 
 ```bash
-# Return to the eo_space project directory, activate the virtual environment
+# 返回eo_space项目位置，激活虚拟环境
 cd /home/ubuntu/eo_space
 source venv/bin/activate
-# Install uwsgi
+# 安装uwsgi
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple uwsgi
-# Create a new uwsgi.ini file, and edit its content as follows:
+# 新建uwsgi.ini文件，编辑内容为：
 ```
 
 ```json
 [uwsgi]
-chdir = /home/ubuntu/eo_space  # Project root directory
+chdir = /home/ubuntu/eo_space  # 工程文件根目录
 module = eo_space.wsgi:application
 socket = :8001
 master = true
 
 buffer-size = 30000
 vacuum = true
-daemonize = /home/ubuntu/eo_space/uwsgi.log  # Modify according to the project root directory
-pidfile = /home/ubuntu/eo_space/uwsgi.pid  # Modify according to the project root directory
-virtualenv=/home/ubuntu/eo_space/venv  # Modify according to the project root directory
+daemonize = /home/ubuntu/eo_space/uwsgi.log  # 根据工程文件根目录相应修改
+pidfile = /home/ubuntu/eo_space/uwsgi.pid  # 根据工程文件根目录相应修改
+virtualenv=/home/ubuntu/eo_space/venv  # 根据工程文件根目录相应修改
 disable-logging = true
 ```
 
 ```bash
-sudo nginx -t  # You can check if the nginx configuration syntax is correct
+sudo nginx -t  # 可以检查nginx配置语法是否正确
 sudo service nginx start
 uwsgi --ini uwsgi.ini
-# Use IP+/ssrpg/SLSentiment as the URL to check if it works
+# 使用IP+/ssrpg/SLSentiment作为URL访问检查是否成功
 ```
 
 - Debug
 
 ```bash
-# If it didn't work:
+# 如果没有成功：
 cd /home/ubuntu/eo_space/eo_space
 vim settings.py
-# In settings.py, set ALLOWED_HOSTS=["*"] or change it to your local IP
-# Rerun the project:
+# settings.py中ALLOWED_HOSTS=["*"]或改为本机IP
+# 重新运行项目：
 sudo service nginx restart
 uwsgi --reload uwsgi.pid
 
-# If it still didn't work:
-# Check the uwsgi.log in the project root directory
-# Check the nginx error log located at /var/log/nginx/error.log
-# Edit settings.py, add the following code to enable Django logging for further inspection:
+# 还是没有成功：
+# 检查项目根目录下uwsgi.log
+# 检查nginx错误日志，位置：/var/log/nginx/error.log
+# 编辑settings.py，添加如下代码，开启Django日志以查看：
 ```
 
 ```python
