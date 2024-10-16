@@ -1,1 +1,1 @@
-Polaris Note
+This repo hosts my work constructing a data integration platform when serving as a data analyst for a game company. Data revealed in this version is completely regenerated randomly as example, and discloses no company-specific or confidential information.
