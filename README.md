@@ -6,6 +6,7 @@
 ## A Business Intelligence Workspace
 
 [Me Introducing this Project](https://youtu.be/q-u6D0fzDCo)
+- This video was filmed for a course's discussion. This project's part starts from 1:52.
 
 ## EO Space Deployment
 
@@ -79,7 +80,7 @@ sudo vim nginx.conf
 # Modify nginx.conf as follows:
 ```
 
-```json
+```bash
 user ubuntu;
 worker_processes auto;
 pid /run/nginx.pid;
